@@ -1,0 +1,8 @@
+﻿@model BakeryOnlineShop.ViewModel.PiesListViewModel
+
+<h1>@Model.CurrentCategory</h1>
+@foreach (var pie in Model.Pies)
+{ 
+    @Html.Partial("PieOverviewSummary",pie)
+    //Html helpers will be replaced by tag helpers
+}
