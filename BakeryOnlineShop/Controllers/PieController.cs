@@ -20,20 +20,28 @@ namespace BakeryOnlineShop.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public ViewResult List()
+        public ViewResult List(string category)
         {
-            PiesListViewModel piesLisViewModel = new PiesListViewModel();
-            piesLisViewModel.Pies = _pieRespository.Pies;
-            piesLisViewModel.CurrentCategory = "Cheese Cakes";
+            IEnumerable<Pie> pies;
+            string currentCategory = string.Empty;
 
-            //ViewBag.CurrentCategory = "Cheese cakes";
-            return View(piesLisViewModel);
+            if (string.IsNullOrEmpty(category))
+            {
+                pies = _pieRespository.Pies.OrderBy(p => p.PieId);
+                currentCategory = "All pies";
+            }
+            else
+            {
+                pies = _pieRespository.Pies.Where(p => p.Category.CategoryName == category)
+                    .OrderBy(p => p.PieId);
+                currentCategory = _categoryRepository.Categories.FirstOrDefault(c => c.CategoryName == category).CategoryName;
+            }
+            
+            return View(new PiesListViewModel
+            {
+                Pies = pies,
+                CurrentCategory = currentCategory
+            });
         }
-
-        // GET: /<controller>/
-        /*public IActionResult Index()
-        {
-            return View();
-        }*/
     }
 }
