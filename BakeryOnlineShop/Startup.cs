@@ -62,7 +62,7 @@ namespace BakeryOnlineShop
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/AppException");
             }
 
             app.UseStatusCodePages();

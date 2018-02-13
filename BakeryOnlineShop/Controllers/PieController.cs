@@ -22,6 +22,8 @@ namespace BakeryOnlineShop.Controllers
 
         public ViewResult List(string category)
         {
+            throw new Exception();
+
             IEnumerable<Pie> pies;
             string currentCategory = string.Empty;
 
